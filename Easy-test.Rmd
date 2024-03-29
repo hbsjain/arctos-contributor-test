@@ -17,21 +17,28 @@ library(dplyr)
 ## Install the package spocc and download occurrence data for one mammal species of your choice.
 ```{r}
 require(spocc)
-# downloading the occurence of cheetahs into a df object
-df <- occ(query = "Acinonyx jubatus")
-
-# converting into a data frame which makes it easier to manipulate
-df <- occ2df(df)
+df <- occ(query = "Acinonyx jubatus",limit = 1000)
 ```
 
 ## Filter the data to keep only records with geographic coordinates.
 ```{r}
-filtered_df <- df |>
-  filter(!is.na(longitude),
-         !is.na(latitude))
+filtered_df <- df$gbif$data$Acinonyx_jubatus
+filtered_df <- filtered_df |> filter(!is.na(latitude),!is.na(longitude))
 ```
 
 ## Filter the data to keep records with coordinate uncertainty less than or equal to 1000 meters.
+```{r}
+filtered_df <-
+  filtered_df |> filter(coordinateUncertaintyInMeters <= 1000)
+```
+
 ## Filter the data to keep only the columns: species, decimalLongitude, decimalLatitude, day, month, and year.
+```{r}
+filtered_df <-
+  filtered_df |> select(species, longitude, latitude, day, month, year)
+```
+
 ## Prepare a summary of the number of records after each of the steps described above.
+
+Number of records after downloading the records setting limit as 1000 fetched 1000 records. After filtering records without geographic coordinates we had 989 remaining. Filtering the uncertainty less than 1000 meters gave 25 observations.
 
