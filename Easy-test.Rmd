@@ -6,7 +6,10 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+library(dplyr)
 ```
 
 # Arctos
@@ -22,6 +25,12 @@ df <- occ2df(df)
 ```
 
 ## Filter the data to keep only records with geographic coordinates.
+```{r}
+filtered_df <- df |>
+  filter(!is.na(longitude),
+         !is.na(latitude))
+```
+
 ## Filter the data to keep records with coordinate uncertainty less than or equal to 1000 meters.
 ## Filter the data to keep only the columns: species, decimalLongitude, decimalLatitude, day, month, and year.
 ## Prepare a summary of the number of records after each of the steps described above.
