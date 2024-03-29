@@ -1,0 +1,28 @@
+---
+title: "Easy-test"
+author: "Harsh"
+date: "2024-03-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Arctos
+
+## Install the package spocc and download occurrence data for one mammal species of your choice.
+```{r}
+require(spocc)
+# downloading the occurence of cheetahs into a df object
+df <- occ(query = "Acinonyx jubatus")
+
+# converting into a data frame which makes it easier to manipulate
+df <- occ2df(df)
+```
+
+## Filter the data to keep only records with geographic coordinates.
+## Filter the data to keep records with coordinate uncertainty less than or equal to 1000 meters.
+## Filter the data to keep only the columns: species, decimalLongitude, decimalLatitude, day, month, and year.
+## Prepare a summary of the number of records after each of the steps described above.
+
